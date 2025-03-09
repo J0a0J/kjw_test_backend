@@ -2,28 +2,32 @@ package com.example.test.board.model;
 
 import com.example.test.comment.model.Comment;
 import com.example.test.comment.model.CommentDto;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
-import org.apache.coyote.Response;
-import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDto {
 
     @Getter
     public static class BoardRequest {
+
+        @Schema(description = "게시글 제목")
         private String title;
+
+        @Schema(description = "게시글 내용")
         private String content;
+
+        @Schema(description = "게시글 작성자")
         private String writer;
 
         public Board toEntity() {
-           return Board.builder()
-                   .title(title)
-                   .content(content)
-                   .writer(writer)
-                   .build();
+            return Board.builder()
+                    .title(title)
+                    .content(content)
+                    .writer(writer)
+                    .build();
         }
     }
 
@@ -31,9 +35,17 @@ public class BoardDto {
     @Getter
     @Builder
     public static class BoardListResponse {
+
+        @Schema(description = "게시글 고유 ID")
         private Long idx;
+
+        @Schema(description = "게시글 제목")
         private String title;
+
+        @Schema(description = "게시글 작성자")
         private String writer;
+
+        @Schema(description = "댓글 개수")
         private int commentCount;
 
         public static BoardListResponse from(Board board) {
@@ -50,10 +62,20 @@ public class BoardDto {
     @Getter
     @Builder
     public static class BoardDetailResponse {
+
+        @Schema(description = "게시글 고유 ID")
         private Long idx;
+
+        @Schema(description = "게시글 제목")
         private String title;
+
+        @Schema(description = "게시글 내용")
         private String content;
+
+        @Schema(description = "게시글 작성자")
         private String writer;
+
+        @Schema(description = "댓글 리스트")
         private List<CommentDto.CommentResponse> commentList;
 
         public static BoardDetailResponse from(Board board) {
